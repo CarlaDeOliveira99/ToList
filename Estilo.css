@@ -1,0 +1,31 @@
+body{
+    background-color: #daf3ff;
+}
+
+#fundo { 
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#CampoDescricao{
+    width: 36vw;
+    border-radius: 3px;
+    height: 2vw;
+    border: 2px, solid, black;
+    background-color: #d9d9d9;
+    color: #737373;
+}
+
+#adicionarTarefa{
+    width: 4vw;
+    border-radius: 3px;
+    height: 2.35vw;
+    border: 2px, solid, black;
+    background-color: #d9d9d9;
+    color: #737373;
+}

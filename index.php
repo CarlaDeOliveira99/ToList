@@ -13,8 +13,24 @@ $db->exec("CREATE TABLE IF NOT EXISTS listTo (id INTEGER PRIMARY KEY, descricao 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To List</title>
+    <link rel="stylesheet" href="Estilo.css">
 </head>
 <body>
-    
+    <div id="fundo" >
+        <div style="background-color: blue;">
+            <h1>TODO LIST </h1>
+        </div>
+        <div>
+            <input type="text" name="CampoDescricaoTarefa" id="CampoDescricao" >
+            <input id="adicionarTarefa" type="button" value="+">
+        </div>
+        <div>
+            <table>
+               <tbody>
+               </tbody>
+            </table>
+        </div>
+
+    </div>
 </body>
 </html>
