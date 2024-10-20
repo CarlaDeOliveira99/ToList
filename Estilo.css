@@ -1,9 +1,8 @@
-body{
+body {
     background-color: #daf3ff;
 }
 
-#fundo { 
-    background-color: aquamarine;
+#fundo {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -12,20 +11,56 @@ body{
     align-items: center;
 }
 
-#CampoDescricao{
-    width: 36vw;
-    border-radius: 3px;
-    height: 2vw;
-    border: 2px, solid, black;
+#tituloPrincipal{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#areaAdicionarTarefa {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#CampoDescricao {
+    width: 39vw;
+    border-radius: 5px;
+    height: 2.5vw;
+    border: none;
+    background-color: #d9d9d9;
+    color: #737373;
+    margin-right: 5px;
+    padding-left: 11px;
+    font-weight: 600;
+}
+
+#btnAdicionaTarefa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 4vw;
+    height: 2.5vw;
     background-color: #d9d9d9;
     color: #737373;
 }
 
-#adicionarTarefa{
-    width: 4vw;
-    border-radius: 3px;
-    height: 2.35vw;
-    border: 2px, solid, black;
-    background-color: #d9d9d9;
-    color: #737373;
+#btnAdicionaTarefa:active {
+    transform: scale(0.80);
+}
+
+.cf-icon-svg {
+    max-width: 100%;
+    height: auto;
 }
