@@ -32,11 +32,13 @@ $db->exec("CREATE TABLE IF NOT EXISTS listTo (id INTEGER PRIMARY KEY, descricao 
         </div>
         <div id="areaTabela">
             <table>
-                <tbody>
+                <tbody id="corpoTabela" >
                 </tbody>
             </table>
         </div>
     </div>
+
+
     <script defer src="tabela.js"></script>
 </body>
 

@@ -64,3 +64,44 @@ body {
     max-width: 100%;
     height: auto;
 }
+
+table{
+    width: 44vw;
+    margin-top: 2vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    background-color: aqua;
+}
+
+tbody{
+    width: 100%;
+    background-color: violet;
+}
+
+.linhas{
+    background-color: #d9d9d9;
+}
+
+.colunaCheckBox{
+    border: 1px solid #545454;
+    width: 17px;
+    height: 17px;
+    color: #daf3ff;
+}
+
+.colunaDescricao{
+    width: 34vw;
+    color: #737373;
+}
+
+.colunaAlterar{
+
+}
+
+.colunaExcluir{
+
+}
