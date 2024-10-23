@@ -6,6 +6,11 @@ let   iIncremento   = 0;
  * dispara evento ao clicar no botão de adicionar tarefas
  */
 oBtnAddTarefa.addEventListener('click', function ()  {
+    criarDinamicamenteTabela();
+    setaDescricaoTabela();
+})
+
+function criarDinamicamenteTabela() {
     iIncremento++;
     const oTr          = document.createElement('tr'),
           oTdCheckList = document.createElement('td'),
@@ -20,25 +25,24 @@ oBtnAddTarefa.addEventListener('click', function ()  {
     
 
     // adicionar id para cada elemento
-     oTr.id          = 'linha_'    + iIncremento;
+     oTr.id        = 'linha_'    + iIncremento;
      oCheckList.id = 'checkox_'  + iIncremento;
      oDescricao.id = 'descricao_'+ iIncremento;
      oAlterar.id   = 'alterar'   + iIncremento;
      oExcluir.id   = 'excluir'   + iIncremento;
 
     // adicionar class para as colunas
-    oTdCheckList.classList.add('td_linha');
-    oTdDescricao.classList.add('td_checkox');
-    oTdAlterar.classList.add  ('td_descricao');
-    oAlterar.classList.add    ('td_alterar');
+    oTdCheckList.classList.add('td_checkox');
+    oTdDescricao.classList.add('td_descricao');
+    oTdAlterar.classList.add  ('td_alterar');
     oTdExcluir.classList.add  ('td_excluir');
     
     // Adicionar class para os elementos
     oTr.classList.add('linhas');
-    oCheckList.classList.add('Box'+ iIncremento);
-    oDescricao.classList.add('colunaDescricao'+ iIncremento);
-    oAlterar.classList.add('colunaAlterar'+ iIncremento);
-    oExcluir.classList.add('colunaExcluir'+ iIncremento);
+    oCheckList.classList.add('campoCheckBox');
+    oDescricao.classList.add('campoDescricao');
+    oAlterar.classList.add('campoAlterar');
+    oExcluir.classList.add('campoExcluir');
 
     //adicionar checkbox no tdCheck
     oCheckList.type = 'checkbox';
@@ -61,8 +65,7 @@ oBtnAddTarefa.addEventListener('click', function ()  {
     oTdDescricao.appendChild(oDescricao);
     oTdAlterar.appendChild(oAlterar);
     oTdExcluir.appendChild(oExcluir);
-        
-})
+}
 
 /**
  * Retorna o svg do alterar
@@ -101,4 +104,13 @@ function addSvgExcluir(){
     svg.appendChild(path);
 
     return svg;  
+}
+
+function setaDescricaoTabela(){
+    let oCampoDescricao      = document.getElementById('descricao_'+ iIncremento),
+        oCampoCampoDescricao = document.getElementById('CampoDescricaoTarefa');
+    if(oCampoDescricao){
+        oCampoDescricao.innerHTML = oCampoCampoDescricao.value
+        oCampoCampoDescricao.value = '';
+    }
 }
