@@ -1,5 +1,6 @@
 const oBtnAddTarefa = document.getElementById('btnAdicionaTarefa'),
       oTbody        = document.getElementById('corpoTabela');
+
 let   iIncremento   = 0;
 
 /**
@@ -7,7 +8,6 @@ let   iIncremento   = 0;
  */
 oBtnAddTarefa.addEventListener('click', function ()  {
     criarDinamicamenteTabela();
-    setaDescricaoTabela();
 })
 
 function criarDinamicamenteTabela() {
@@ -47,6 +47,10 @@ function criarDinamicamenteTabela() {
     //adicionar checkbox no tdCheck
     oCheckList.type = 'checkbox';
 
+    oCheckList.addEventListener("click", function(event) {
+        trataChecBoxSelecionado(event.target.id);
+      });
+
 
     //adicionar sgv nos botões
     const svgAlterar  = addSvgAlterar();
@@ -65,6 +69,10 @@ function criarDinamicamenteTabela() {
     oTdDescricao.appendChild(oDescricao);
     oTdAlterar.appendChild(oAlterar);
     oTdExcluir.appendChild(oExcluir);
+    if(!setaDescricaoTabela()){
+        oTr.remove();
+    }
+    
 }
 
 /**
@@ -107,10 +115,22 @@ function addSvgExcluir(){
 }
 
 function setaDescricaoTabela(){
-    let oCampoDescricao      = document.getElementById('descricao_'+ iIncremento),
-        oCampoCampoDescricao = document.getElementById('CampoDescricaoTarefa');
-    if(oCampoDescricao){
-        oCampoDescricao.innerHTML = oCampoCampoDescricao.value
-        oCampoCampoDescricao.value = '';
+    let oCampoDescricao  = document.getElementById('CampoDescricaoTarefa'),
+        oTabelaDescricao = document.getElementById('descricao_'+ iIncremento);
+        if(oCampoDescricao.value != ''){
+            oTabelaDescricao.innerHTML  = oCampoDescricao.value;
+            oCampoDescricao.value = '';
+            return true;
+        } else {
+            return false;
+        }
+}
+
+function trataChecBoxSelecionado(idCheckBox){
+    debugger;
+    let oCampoCheckox = document.getElementById(idCheckBox);
+    if(oCampoCheckox.value == 'on'){
+        oCampoCheckox.style.textDecoration = ''
     }
+
 }
