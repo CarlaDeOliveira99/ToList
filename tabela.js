@@ -1,53 +1,53 @@
-const oBtnAddTarefa = document.getElementById('btnAdicionaTarefa'),
-      oTbody        = document.getElementById('corpoTabela');
+const btnAddTarefa = document.getElementById('btnAdicionaTarefa'),
+      tbody        = document.getElementById('corpoTabela');
 
-let   iIncremento   = 0;
+let   incremento   = 0;
 
 /**
  * dispara evento ao clicar no botão de adicionar tarefas
  */
-oBtnAddTarefa.addEventListener('click', function ()  {
+btnAddTarefa.addEventListener('click', function ()  {
     criarDinamicamenteTabela();
 })
 
 function criarDinamicamenteTabela() {
-    iIncremento++;
-    const oTr          = document.createElement('tr'),
-          oTdCheckList = document.createElement('td'),
-          oTdDescricao = document.createElement('td'),
-          oTdAlterar   = document.createElement('td'),
-          oTdExcluir   = document.createElement('td'),
+    incremento++;
+    const tr          = document.createElement('tr'),
+          tdCheckList = document.createElement('td'),
+          tdDescricao = document.createElement('td'),
+          tdAlterar   = document.createElement('td'),
+          tdExcluir   = document.createElement('td'),
 
-          oCheckList = document.createElement('input'),
-          oDescricao = document.createElement('td'),
-          oAlterar   = document.createElement('button'),
-          oExcluir   = document.createElement('button');
+          checkList = document.createElement('input'),
+          descricao = document.createElement('td'),
+          alterar   = document.createElement('button'),
+          excluir   = document.createElement('button');
     
 
     // adicionar id para cada elemento
-     oTr.id        = 'linha_'    + iIncremento;
-     oCheckList.id = 'checkox_'  + iIncremento;
-     oDescricao.id = 'descricao_'+ iIncremento;
-     oAlterar.id   = 'alterar'   + iIncremento;
-     oExcluir.id   = 'excluir'   + iIncremento;
+     tr.id        = 'linha_'    + incremento;
+     checkList.id = 'checkox_'  + incremento;
+     descricao.id = 'descricao_'+ incremento;
+     alterar.id   = 'alterar'   + incremento;
+     excluir.id   = 'excluir'   + incremento;
 
     // adicionar class para as colunas
-    oTdCheckList.classList.add('td_checkox');
-    oTdDescricao.classList.add('td_descricao');
-    oTdAlterar.classList.add  ('td_alterar');
-    oTdExcluir.classList.add  ('td_excluir');
+    tdCheckList.classList.add('td_checkox');
+    tdDescricao.classList.add('td_descricao');
+    tdAlterar.classList.add  ('td_alterar');
+    tdExcluir.classList.add  ('td_excluir');
     
     // Adicionar class para os elementos
-    oTr.classList.add('linhas');
-    oCheckList.classList.add('campoCheckBox');
-    oDescricao.classList.add('campoDescricao');
-    oAlterar.classList.add('campoAlterar');
-    oExcluir.classList.add('campoExcluir');
+    tr.classList.add('linhas');
+    checkList.classList.add('campoCheckBox');
+    descricao.classList.add('campoDescricao');
+    alterar.classList.add('campoAlterar');
+    excluir.classList.add('campoExcluir');
 
     //adicionar checkbox no tdCheck
-    oCheckList.type = 'checkbox';
+    checkList.type = 'checkbox';
 
-    oCheckList.addEventListener("click", function(event) {
+    checkList.addEventListener("click", function(event) {
         trataChecBoxSelecionado(event.target.id);
       });
 
@@ -56,21 +56,21 @@ function criarDinamicamenteTabela() {
     const svgAlterar  = addSvgAlterar();
     const svgExcluir  = addSvgExcluir();
 
-    oAlterar.appendChild(svgAlterar);
-    oExcluir.appendChild(svgExcluir);
+    alterar.appendChild(svgAlterar);
+    excluir.appendChild(svgExcluir);
 
     //adiciona os elementos criados no html
-    oTbody.appendChild(oTr);
-    oTr.appendChild(oTdCheckList);
-    oTr.appendChild(oTdDescricao);
-    oTr.appendChild(oTdAlterar);
-    oTr.appendChild(oTdExcluir);
-    oTdCheckList.appendChild(oCheckList);
-    oTdDescricao.appendChild(oDescricao);
-    oTdAlterar.appendChild(oAlterar);
-    oTdExcluir.appendChild(oExcluir);
+    tbody.appendChild(tr);
+    tr.appendChild(tdCheckList);
+    tr.appendChild(tdDescricao);
+    tr.appendChild(tdAlterar);
+    tr.appendChild(tdExcluir);
+    tdCheckList.appendChild(checkList);
+    tdDescricao.appendChild(descricao);
+    tdAlterar.appendChild(alterar);
+    tdExcluir.appendChild(excluir);
     if(!setaDescricaoTabela()){
-        oTr.remove();
+        tr.remove();
     }
     
 }
@@ -115,11 +115,11 @@ function addSvgExcluir(){
 }
 
 function setaDescricaoTabela(){
-    let oCampoDescricao  = document.getElementById('CampoDescricaoTarefa'),
-        oTabelaDescricao = document.getElementById('descricao_'+ iIncremento);
-        if(oCampoDescricao.value != ''){
-            oTabelaDescricao.innerHTML  = oCampoDescricao.value;
-            oCampoDescricao.value = '';
+    let campoDescricao  = document.getElementById('CampoDescricaoTarefa'),
+        tabelaDescricao = document.getElementById('descricao_'+ incremento);
+        if(campoDescricao.value != ''){
+            tabelaDescricao.innerHTML  = campoDescricao.value;
+            campoDescricao.value = '';
             return true;
         } else {
             return false;
@@ -127,10 +127,75 @@ function setaDescricaoTabela(){
 }
 
 function trataChecBoxSelecionado(idCheckBox){
-    debugger;
-    let oCampoCheckox = document.getElementById(idCheckBox);
-    if(oCampoCheckox.value == 'on'){
-        oCampoCheckox.style.textDecoration = ''
-    }
+    const indeci          = parseInt(idCheckBox.split('_')[1]),
+          campoCheckox    = document.getElementById(idCheckBox),
+          tabelaDescricao = document.getElementById('descricao_'+ indeci);
 
+    if(campoCheckox.checked){
+        tabelaDescricao.style.textDecoration = 'line-through';
+    } else {
+        tabelaDescricao.style.textDecoration = 'none';
+    }
+}
+
+function trataAcaoAlterar(){
+        
+}
+
+function alertAlterarDescricao(){
+    Swal.fire({
+        title: "Submit your Github username",
+        input: "text",
+        inputAttributes: {
+          autocapitalize: "off"
+        },
+        showCancelButton: true,
+        confirmButtonText: "Look up",
+        showLoaderOnConfirm: true,
+        preConfirm: async (login) => {
+          try {
+            const githubUrl = `
+              https://api.github.com/users/${login}
+            `;
+            const response = await fetch(githubUrl);
+            if (!response.ok) {
+              return Swal.showValidationMessage(`
+                ${JSON.stringify(await response.json())}
+              `);
+            }
+            return response.json();
+          } catch (error) {
+            Swal.showValidationMessage(`
+              Request failed: ${error}
+            `);
+          }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: `${result.value.login}'s avatar`,
+            imageUrl: result.value.avatar_url
+          });
+        }
+      });
+
+
+    Swal.fire({
+        title: "Tem certeza que deseja alterar ?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Alterado!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }
+      });
 }

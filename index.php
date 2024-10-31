@@ -15,6 +15,8 @@ $db->exec("CREATE TABLE IF NOT EXISTS listTo (id INTEGER PRIMARY KEY, descricao 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To List</title>
     <link rel="stylesheet" href="Estilo.css">
+    <!-- sweetalert -->
+    <link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 
 <body>
@@ -40,6 +42,8 @@ $db->exec("CREATE TABLE IF NOT EXISTS listTo (id INTEGER PRIMARY KEY, descricao 
 
 
     <script defer src="tabela.js"></script>
+    <!--sweetalert  -->
+    <script src="sweetalert2.min.js"></script>
 </body>
 
 </html>
