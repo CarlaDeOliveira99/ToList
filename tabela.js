@@ -1,3 +1,6 @@
+
+import {setaDescricaoTabela, trataChecBoxSelecionado, trataAcaoAlterar} from './comportamentos.js'
+
 const btnAddTarefa = document.getElementById('btnAdicionaTarefa'),
       tbody        = document.getElementById('corpoTabela');
 
@@ -10,6 +13,9 @@ btnAddTarefa.addEventListener('click', function ()  {
     criarDinamicamenteTabela();
 })
 
+/*
+ * Cria a tabela dinamicamente 
+ */
 function criarDinamicamenteTabela() {
     incremento++;
     const tr          = document.createElement('tr'),
@@ -24,42 +30,37 @@ function criarDinamicamenteTabela() {
           excluir   = document.createElement('button');
     
 
-    // adicionar id para cada elemento
+    /*adicionar id para cada elemento*/
      tr.id        = 'linha_'    + incremento;
      checkList.id = 'checkox_'  + incremento;
      descricao.id = 'descricao_'+ incremento;
-     alterar.id   = 'alterar'   + incremento;
-     excluir.id   = 'excluir'   + incremento;
+     alterar.id   = 'alterar_'   + incremento;
+     excluir.id   = 'excluir_'   + incremento;
 
-    // adicionar class para as colunas
+    /*adicionar class para as colunas*/
     tdCheckList.classList.add('td_checkox');
     tdDescricao.classList.add('td_descricao');
     tdAlterar.classList.add  ('td_alterar');
     tdExcluir.classList.add  ('td_excluir');
     
-    // Adicionar class para os elementos
+    /*Adicionar class para os elementos*/
     tr.classList.add('linhas');
     checkList.classList.add('campoCheckBox');
     descricao.classList.add('campoDescricao');
     alterar.classList.add('campoAlterar');
     excluir.classList.add('campoExcluir');
 
-    //adicionar checkbox no tdCheck
+    /*adicionar checkbox no tdCheck*/
     checkList.type = 'checkbox';
 
-    checkList.addEventListener("click", function(event) {
-        trataChecBoxSelecionado(event.target.id);
-      });
-
-
-    //adicionar sgv nos botões
+    /*adicionar sgv nos botões*/
     const svgAlterar  = addSvgAlterar();
     const svgExcluir  = addSvgExcluir();
 
     alterar.appendChild(svgAlterar);
     excluir.appendChild(svgExcluir);
 
-    //adiciona os elementos criados no html
+    /*adiciona os elementos criados no html*/
     tbody.appendChild(tr);
     tr.appendChild(tdCheckList);
     tr.appendChild(tdDescricao);
@@ -69,15 +70,31 @@ function criarDinamicamenteTabela() {
     tdDescricao.appendChild(descricao);
     tdAlterar.appendChild(alterar);
     tdExcluir.appendChild(excluir);
-    if(!setaDescricaoTabela()){
+
+    /**
+     * Verifica se possui descrição para incluir na tabela
+     * @param int
+     */
+    if(!setaDescricaoTabela(incremento)){
         tr.remove();
     }
+
+    /**
+     * Trata o campo checkox
+     */
+    checkList.addEventListener("click", function(event) {
+      trataChecBoxSelecionado(event.target.id);
+    });
+
+    alterar.addEventListener('click', function(event){
+      trataAcaoAlterar(event.target.parentElement.id);
+    })
     
 }
 
 /**
- * Retorna o svg do alterar
- * @returns object
+ * Retorna o icone de alterar em svg
+ * @return object
  */
 function addSvgAlterar(){
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -95,7 +112,7 @@ function addSvgAlterar(){
 }
 
 /**
- * Retorna o svg do excluir
+ * Retorna o icone de alterar em svg
  * @returns object
  */
 function addSvgExcluir(){
@@ -114,88 +131,4 @@ function addSvgExcluir(){
     return svg;  
 }
 
-function setaDescricaoTabela(){
-    let campoDescricao  = document.getElementById('CampoDescricaoTarefa'),
-        tabelaDescricao = document.getElementById('descricao_'+ incremento);
-        if(campoDescricao.value != ''){
-            tabelaDescricao.innerHTML  = campoDescricao.value;
-            campoDescricao.value = '';
-            return true;
-        } else {
-            return false;
-        }
-}
 
-function trataChecBoxSelecionado(idCheckBox){
-    const indeci          = parseInt(idCheckBox.split('_')[1]),
-          campoCheckox    = document.getElementById(idCheckBox),
-          tabelaDescricao = document.getElementById('descricao_'+ indeci);
-
-    if(campoCheckox.checked){
-        tabelaDescricao.style.textDecoration = 'line-through';
-    } else {
-        tabelaDescricao.style.textDecoration = 'none';
-    }
-}
-
-function trataAcaoAlterar(){
-        
-}
-
-function alertAlterarDescricao(){
-    Swal.fire({
-        title: "Submit your Github username",
-        input: "text",
-        inputAttributes: {
-          autocapitalize: "off"
-        },
-        showCancelButton: true,
-        confirmButtonText: "Look up",
-        showLoaderOnConfirm: true,
-        preConfirm: async (login) => {
-          try {
-            const githubUrl = `
-              https://api.github.com/users/${login}
-            `;
-            const response = await fetch(githubUrl);
-            if (!response.ok) {
-              return Swal.showValidationMessage(`
-                ${JSON.stringify(await response.json())}
-              `);
-            }
-            return response.json();
-          } catch (error) {
-            Swal.showValidationMessage(`
-              Request failed: ${error}
-            `);
-          }
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: `${result.value.login}'s avatar`,
-            imageUrl: result.value.avatar_url
-          });
-        }
-      });
-
-
-    Swal.fire({
-        title: "Tem certeza que deseja alterar ?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Alterado!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
-        }
-      });
-}
